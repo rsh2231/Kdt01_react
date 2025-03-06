@@ -1,12 +1,13 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import Hello from "./01/Hello"
-import HelloDate from "./01/HelloDate"
-import { IoHome } from "react-icons/io5";
-// import MyClock from './02/MyClock';
-import MyDiv1 from './03/MyDiv1';
-import MyList from './04/MyList';
-import Lotto from './05/Lotto';
+// import Hello from "./01/Hello"
+// import HelloDate from "./01/HelloDate"
+// import { IoHome } from "react-icons/io5";
+// // import MyClock from './02/MyClock';
+// import MyDiv1 from './03/MyDiv1';
+// import MyList from './04/MyList';
+// import Lotto from './05/Lotto';
+import FoodMain from './06/FoodMain';
 
 function App() {
   return (
@@ -24,13 +25,14 @@ function App() {
           </div>
         </div>
         <div className="text-3xl font-bold text-black">
-          <IoHome />         
+          {/* <IoHome />          */}
         </div>
       </header>
       <main className="w-full flex-grow
                       flex flex-col
                       overflow-y-auto">
-      <Lotto />
+      {/* <Lotto /> */}
+      <FoodMain />
       </main>
       <footer className="w-full min-h-20 bg-amber-900
                          px-10  text-amber-50 font-bold text-sm
