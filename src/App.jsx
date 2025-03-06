@@ -1,29 +1,44 @@
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { CiCoffeeCup } from "react-icons/ci";
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import Hello from "./01/Hello"
+import HelloDate from "./01/HelloDate"
+import { IoHome } from "react-icons/io5";
+// import MyClock from './02/MyClock';
+import MyDiv1 from './03/MyDiv1';
+import MyList from './04/MyList';
+import Lotto from './05/Lotto';
 
 function App() {
   return (
-    <div className="w-full h-full bg-cyan-50">
-      <div></div>
-      <div className="w-full flex justify-center items-center p-10">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="font-bold text-4xl">Vite + React</h1>
-      <div className="card">
-        <p className="font-black">부산대학교 KDT 1기 류상현</p>
-      </div>
-      <p className="text-amber-950 flex justify-center items-center text-8xl">
-        <CiCoffeeCup />
-      </p>
+    <div className="w-full xl:w-8/10 h-screen mx-auto 
+                    flex flex-col">
+      <header className="w-full h-20 bg-amber-50
+                         px-10
+                         flex justify-between items-center">
+
+        <div className="text-4xl font-bold text-amber-700 flex">
+          PNU KDT10 
+          <div className="flex text-sm items-center mx-5">
+            <img src={reactLogo} alt="react" className="w-8" /> + 
+            <img src={viteLogo} alt="vite" className="w-8" />
+          </div>
+        </div>
+        <div className="text-3xl font-bold text-black">
+          <IoHome />         
+        </div>
+      </header>
+      <main className="w-full flex-grow
+                      flex flex-col
+                      overflow-y-auto">
+      <Lotto />
+      </main>
+      <footer className="w-full min-h-20 bg-amber-900
+                         px-10  text-amber-50 font-bold text-sm
+                         flex justify-center items-center">
+         [K-Digital 부산대 25-1회차] AI 데이터 분석 풀스택 웹 개발자 양성과정                 
+      </footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
