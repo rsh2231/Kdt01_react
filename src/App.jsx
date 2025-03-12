@@ -1,13 +1,16 @@
+import MyEffect from './08/MyEffect'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 // import Hello from "./01/Hello"
 // import HelloDate from "./01/HelloDate"
 // import { IoHome } from "react-icons/io5";
-// // import MyClock from './02/MyClock';
+// import MyClock from './02/MyClock';
 // import MyDiv1 from './03/MyDiv1';
 // import MyList from './04/MyList';
 // import Lotto from './05/Lotto';
-import FoodMain from './06/FoodMain';
+//import FoodMain from './06/FoodMain';
+// import MyToggle from './07/MyToggle'
+import BoxOffice from './09/BoxOffice'
 
 function App() {
   return (
@@ -31,8 +34,12 @@ function App() {
       <main className="w-full flex-grow
                       flex flex-col
                       overflow-y-auto">
+      {/* <MyClock/> */}
       {/* <Lotto /> */}
-      <FoodMain />
+      {/* <FoodMain /> */}
+      {/* <MyToggle /> */}
+      {/* <MyEffect/> */}
+      <BoxOffice/>
       </main>
       <footer className="w-full min-h-20 bg-amber-900
                          px-10  text-amber-50 font-bold text-sm
