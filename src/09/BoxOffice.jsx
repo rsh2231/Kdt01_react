@@ -1,11 +1,8 @@
 //table참고 : https://flowbite.com/docs/components/tables/
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 export default function BoxOffice() {
-  //화면에 랜더링 될 상태 변수
-  const [tags, setTags] = useState([]);
-  const [info, setInfo] = useState();
 
   //어제날짜가져오기
   const getYesterday = () => {
@@ -21,13 +18,19 @@ export default function BoxOffice() {
     return year + "-" + month + "-" + day;
   };
 
+    //화면에 랜더링 될 상태 변수
+    const [tags, setTags] = useState([]);
+    const [info, setInfo] = useState();
+    const [dt, setDt] = useState();
+    const refDt = useRef();
+  
   //일일 박스 오피스 정보 가져오기
   const getFetchData = async () => {
     const mvApiKey = import.meta.env.VITE_APP_MV_KEY;
-    let dt = getYesterday().replaceAll("-", "");
+    let tmdt = dt.replaceAll("-", "");
 
     let url = `https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?`;
-    url = `${url}key=${mvApiKey}&targetDt=${dt}`;
+    url = `${url}key=${mvApiKey}&targetDt=${tmdt}`;
 
     //console.log(url)
     try {
@@ -43,10 +46,18 @@ export default function BoxOffice() {
     }
   };
 
-  //컴포넌트가 실행될때 한번 fetch
+  // 컴포넌트가 마운트 될때
   useEffect(() => {
-    getFetchData(); //
-  }, []); // 빈 애열 -> 처음 마운트될 때만 실행
+    setDt(getYesterday());
+    refDt.current.max = getYesterday();
+  }, []);
+
+  // dt가 변경될 때마다 fetchData 호출
+  useEffect(() => {
+    if(!dt) return;
+    refDt.current.value = dt;
+    getFetchData();
+  }, [dt])
 
   // 영화정보
   const handleShow = (item) => {
@@ -55,8 +66,22 @@ export default function BoxOffice() {
     console.log(item)
   }
 
+  const handleChange = (e) => {
+    setDt(e.target.value);
+  }
+
   return (
     <div>
+      <div className="w-11/12">
+        <div className="w-full text-sm text-right - my-2">
+          <span className="inline-flex mr-2 text-md font-bold">
+            날짜선택
+          </span>
+          <input type="date" ref={refDt}
+                className="p-2 border"
+                onChange={handleChange}/>
+        </div>
+      </div>
       <table className="w-full">
         <thead className="font-bold border-b border-b-gray-900">
           <tr>

@@ -11,6 +11,8 @@ import viteLogo from '/vite.svg'
 //import FoodMain from './06/FoodMain';
 // import MyToggle from './07/MyToggle'
 import BoxOffice from './09/BoxOffice'
+//import Traffic from './10/Traffic'
+// import MyRef from './11/MyRef'
 
 function App() {
   return (
@@ -40,6 +42,9 @@ function App() {
       {/* <MyToggle /> */}
       {/* <MyEffect/> */}
       <BoxOffice/>
+      {/* <Traffic /> */}
+      {/* <MyRef /> */}
+
       </main>
       <footer className="w-full min-h-20 bg-amber-900
                          px-10  text-amber-50 font-bold text-sm

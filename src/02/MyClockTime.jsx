@@ -5,11 +5,6 @@ export default function MyClockTime() {
   //usetate currentTime 변수 상태 변화
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // 클릭하면 currentTime 속성 변화
-  const handleClick = () => {
-    setCurrentTime(new Date());
-  };
-
   useEffect(() => {
     //setInterval(callback, delay, ... args)
     // callback: 반복적으로 실행할 함수.
@@ -22,7 +17,7 @@ export default function MyClockTime() {
     return () => {
       clearInterval(tm);
     };
-  }, []);
+  }, []); // 빈 배열은 컴포넌트가 렌더링될 때 한번 실행
 
   return (
     <div
