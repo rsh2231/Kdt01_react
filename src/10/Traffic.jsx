@@ -9,7 +9,6 @@ const [tdata, setTdata] = useState();
 const [c1, setC1] = useState();
 const [selc1, setSelC1] = useState();
 
-
 // 사고유형 데이터
 const [c2, setC2] = useState();
 const [selc2, setSelC2] = useState();
