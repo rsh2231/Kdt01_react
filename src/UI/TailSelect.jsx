@@ -1,23 +1,20 @@
-export default function TailSelect({ id, selectRef, gugun, handleChange }) {
+export default function TailSelect({id, guguns, selRef, handleChange}) {
   return (
     <form className="max-w-sm mx-auto">
       <select
         id={id}
-        ref={selectRef}
+        ref={selRef}
         onChange={handleChange}
-        className="block w-full text-lg text-gray-700 bg-white border-2 border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-indigo-500 focus:outline-none appearance-none py-3 px-4 mb-4"
+        className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
       >
-        <option value="" disabled className="text-gray-400">
-          구/군 선택
-        </option>
-        {gugun.map((region) => (
+        <option value="">구/군 선택</option>
+        {guguns.map(item =>
           <option 
-          key={region} 
-          value={region} 
-          className="text-gray-700">
-            {region}
-          </option>
-        ))}
+          key={item} 
+          value={item}>
+            {item}
+            </option>
+        )}
       </select>
     </form>
   );
