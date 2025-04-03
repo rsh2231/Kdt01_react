@@ -1,74 +1,78 @@
-import { useState, useEffect, useRef } from "react";
-import TailSelect from "../UI/TailSelect";
-import TailCard from "../UI/TailCard";
+import TailSelect from "../UI/TailSelect"
+import TailCard from "../UI/TailCard"
+import { useEffect, useRef, useState } from "react"
 
 export default function Festival() {
-  // 초기 데이터 설정
-  const [tdata, setTdata] = useState([]);
-  const [guguns, setGuguns] = useState([]);
+  //전체 데이터 
+  const [tdata, setTdata] = useState();
+  const [ops, setOps] = useState([]);
   const [tags, setTags] = useState([]);
 
-  // useRef로 select 접근
-  const selRef = useRef();
+  //select ref
+  const refSel = useRef();
 
-  // 부산 축제 정보 가져오기
-  const getFetchData = async () => {
-    try {
-      const apikey = import.meta.env.VITE_APP_API_KEY;
-      const url = `https://apis.data.go.kr/6260000/FestivalService/getFestivalKr?serviceKey=${apikey}&pageNo=1&numOfRows=100&resultType=json`;
 
-      const resp = await fetch(url);
-      const data = await resp.json();
+  //select 선택
+  const handleChange = () => {
+    console.log(refSel.current.value)
 
-      let tm = data.getFestivalKr.item;
-      setTdata(tm);
-    } catch (error) {
-      console.log("데이터 로딩중 오류 발생", error);
-    }
-  };
+    let tm = tdata.filter( item => item.GUGUN_NM == refSel.current.value)
+                  .map(item => <TailCard key ={item.UC_SEQ}
+                                          title = {item.MAIN_TITLE.split('(')[0]}
+                                          subtitle ={item.TITLE}
+                                          imgurl ={item.MAIN_IMG_THUMB}
+                                          kws = {item.TRFC_INFO.replaceAll(',', ' ')}
+                                          />);
+   setTags(tm);
+  }
 
-  // 컴포넌트가 마운트 될 때 fetch 실행
+  // data fetch
+  const getFetchData = async() => {
+    //fetch
+    const apikey = import.meta.env.VITE_APP_API_KEY ;
+
+    let url = `https://apis.data.go.kr/6260000/FestivalService/getFestivalKr?`;
+    url = `${url}serviceKey=${apikey}&pageNo=1&numOfRows=39&resultType=json`;
+
+    console.log(url) ;
+
+    const resp = await fetch(url) ;
+    const data = await resp.json(); 
+ 
+    //state 변수 => tdata 변경
+    setTdata(data.getFestivalKr.item) ;
+  }
+
+  //맨처음 한번
   useEffect(() => {
     getFetchData();
   }, []);
 
-  // gugun 추출하기
+  //전체 데이터 생성 후
   useEffect(() => {
-    let tm = tdata.map((item) => item.GUGUN_NM);
-    tm = [...new Set(tm)].sort();
+    if (!tdata) return ;
 
-    console.log(tm);
-    setGuguns(tm);
-    // tdata가 변화하면 실행
+    let tm = tdata.map(item => item.GUGUN_NM) ;
+    tm = [... new Set(tm)] ;
+    tm.sort() ;
+
+    console.log(tm)
+    setOps(tm);
   }, [tdata]);
-
-  const handlechang = () => {
-    let keywords = tdata.filter(item => item.PLACE.split(",")).map(kw => kw.trim());
-    let tm = tdata
-      .filter((item) => item.GUGUN_NM == selRef)
-      .map((item) => (
-        <TailCard
-          title={item.MAIN_TITLE}
-          subtitle={item.TITLE}
-          imgurl={item.MAIN_IMG_THUMB}
-          kws={keywords}
-        />
-      ));
-      setTags(tm);
-  };
-
   return (
-    <div>
-      <div>
-        <TailSelect 
-        id="Sel1" 
-        guguns={guguns}
-        selRef={selRef} 
-        handleChange={handlechang} />
+    <div className="w-10/12 flex flex-col justify-start items-center">
+      <h1 className="mb-2 text-2xl font-bold tracking-tight text-lime-900">
+        부산 축제 정보
+      </h1>
+      <div className="w-1/2">
+      <TailSelect id="sel1"
+                  refSel={refSel}
+                  ops={ops}
+                  handleChange={handleChange} />
       </div>
-      <div>
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
         {tags}
       </div>
     </div>
-  );
+  )
 }

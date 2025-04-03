@@ -1,27 +1,33 @@
 export default function TailCard({ title, subtitle, imgurl, kws }) {
   return (
-    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
-        <img class="rounded-t-lg" src={imgurl} alt="" />
-      </a>
-      <div class="p-5">
-        <a href="#">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {title}
-          </h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          {subtitle}
+    <div
+      className="max-w-sm bg-white border 
+                   border-gray-200 rounded-lg shadow-sm"
+    >
+      <div className="w-full h-48">
+        <img
+          className="rounded-t-lg w-full h-full object-cover"
+          src={imgurl}
+          alt={title}
+        />
+      </div>
+      <div className="p-5 flex flex-col justify-between">
+        <h1 className="h-10 mb-2 text-2xl font-bold tracking-tight text-gray-900 truncate">
+          {title}
+        </h1>
+        <p className="mb-3 font-normal text-gray-700">{subtitle}</p>
+        <p>
+          {kws.split(",").map((item) => (
+            <span
+              key={item}
+              className="inline-flex justify-center items-center
+                                                       bg-lime-100
+                                                       p-1 m-1"
+            >
+              {item}
+            </span>
+          ))}
         </p>
-        {kws.map((kw) => (
-          <a
-            key={kw}
-            href="#"
-            class="inline-flex items-center px-1 py-1 m-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            {kw}
-          </a>
-        ))}
       </div>
     </div>
   );
